@@ -16,24 +16,24 @@ export const Button = ({ children, submit, ...rest }) => {
   };
   if (isLoading)
     return (
-      <button {...rest} onClick={submitHandler}>
+      <button {...rest} onClick={submitHandler} data-testid="loading-button">
         submitting
       </button>
     );
   if (isSuccess)
     return (
-      <button {...rest} disabled>
+      <button {...rest} disabled data-testid="success-button">
         done
       </button>
     );
   if (isSuccess != null && !isSuccess)
     return (
-      <button {...rest} onClick={submitHandler}>
+      <button {...rest} onClick={submitHandler} data-testid="retry-button">
         try again
       </button>
     );
   return (
-    <button {...rest} onClick={submitHandler}>
+    <button {...rest} onClick={submitHandler} data-testid="default-button">
       {children}
     </button>
   );
