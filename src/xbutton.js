@@ -10,7 +10,7 @@ export const Button = ({ children, submit, disabled, ...rest }) => {
     <button
       onClick={() => send("PRESS")}
       className={`button-${current.value}`}
-      disabled={disabled}
+      disabled={disabled || current.matches("success")}
     >
       {current.matches("clicked") && <span>submitting</span>}
       {current.matches("success") && <span>done</span>}

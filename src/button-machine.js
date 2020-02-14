@@ -45,7 +45,9 @@ export const buttonMachine = onSubmit =>
             BLUR: "active"
           }
         },
-        success: {},
+        success: {
+          type: "final"
+        },
         retry: {
           on: {
             HOVER: "hovered",
