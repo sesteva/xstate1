@@ -67,7 +67,6 @@ describe('Button vs XButton', ()=>{
         }
       },
       success: {
-        type: "final",
         meta: {
           test: async ({ getByTestId, container }) => {            
             await waitForElement(()=> getByTestId(/final/), {container})            
