@@ -50,13 +50,15 @@ export function App() {
           />
         </label>
         <div>
-          <XButton
-            className="button-disabled"
-            submit={submitWithChance}
-            disabled={data === null || data === ""}
-          >
-            Xsubmit
-          </XButton>
+        {
+          // <XButton
+          //   className="button-disabled"
+          //   submit={submitWithChance}
+          //   disabled={data === null || data === ""}
+          // >
+          //   Xsubmit
+          // </XButton>
+        }
           <Button
             submit={submitWithChance}
             disabled={data === null || data === ""}

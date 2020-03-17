@@ -22,13 +22,13 @@ export const Button = ({ children, submit, ...rest }) => {
     );
   if (isSuccess)
     return (
-      <button {...rest} disabled data-testid="success-button">
+      <button {...rest} disabled data-testid="final-success-button">
         done
       </button>
     );
   if (isSuccess != null && !isSuccess)
     return (
-      <button {...rest} onClick={submitHandler} data-testid="retry-button">
+      <button {...rest} onClick={submitHandler} data-testid="final-retry-button">
         try again
       </button>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { App } from './app.js'
 import { Machine } from 'xstate';
-import { render, fireEvent, cleanup, getByTestId, waitForElement, waitForDomChange } from '@testing-library/react';
+import { render, fireEvent, waitForElement } from '@testing-library/react';
 import { createModel } from '@xstate/test';
 
 describe('Button vs XButton', ()=>{
@@ -42,11 +42,6 @@ describe('Button vs XButton', ()=>{
       pressed: {
         on: {
           "": "clicked"
-        },
-        meta: {
-          test: ({ getByTestId }) => {
-            expect(getByTestId('loading-button'));
-          }
         }
       },
       clicked: {  
@@ -54,20 +49,15 @@ describe('Button vs XButton', ()=>{
           "": [
             {
               target: 'success',
-              cond: (_, event) => {     
+              cond: (_, event, __) => {     
                 // Need to get the button to see if the right one has been rendered
-                // testId === "success-button"                                                                  
+                // but there is no access to the DOM                                                                
                 return true
               }
             },
             { target: 'retry' }
             
           ]
-        },      
-        meta: {
-          test: ({ getByTestId }) => {
-            expect(getByTestId('loading-button'));
-          }
         }
       },
       focused: {
@@ -80,8 +70,7 @@ describe('Button vs XButton', ()=>{
         type: "final",
         meta: {
           test: async ({ getByTestId, container }) => {            
-            const button = await waitForElement(()=> getByTestId('success-button'), {container})
-            expect(button);            
+            await waitForElement(()=> getByTestId(/final/), {container})            
           }
         }
       },
@@ -111,6 +100,10 @@ describe('Button vs XButton', ()=>{
       const button = getByTestId("default-button")
       fireEvent.mouseOver(button)
     },
+    HOVEROFF: ({getByTestId})=>{
+      const input = getByTestId("username-input")
+      fireEvent.mouseOver(input)
+    },
     PRESS: ({getByTestId})=>{
       const button = getByTestId("default-button")
       fireEvent.click(button)      
@@ -134,7 +127,9 @@ describe('Button vs XButton', ()=>{
     });
   });
 
-  it('should have full coverage', () => {
-    return testModel.testCoverage();
+  it('should have full coverage', () => {    
+    return testModel.testCoverage({
+      filter: stateNode => !!stateNode.meta
+    });
   });
 })
